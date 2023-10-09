@@ -1,47 +1,50 @@
-// C++ program for insertion sort
- 
-#include <bits/stdc++.h>
-using namespace std;
- 
-// Function to sort an array using
-// insertion sort
-void insertionSort(int arr[], int n)
+#include <iostream>
+using namespace std ;
+void insertionsort(int a [] , int n )
 {
-    int i, key, j;
-    for (i = 1; i < n; i++) {
-        key = arr[i];
-        j = i - 1;
- 
-        // Move elements of arr[0..i-1],
-        // that are greater than key, 
-        // to one position ahead of their
-        // current position
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j = j - 1;
-        }
-        arr[j + 1] = key;
-    }
+    int temp , j ;
+  for (int k = 0; k < n; ++k)//iterating the array for all elements
+  {
+   temp = a[k];//storing temporary data into a var 
+   j=k-1;
+   while((temp < a[j]) && (j>=0))//iterating the array for sorting (inner sort)
+   {
+      a[j+1]=a[j];
+      j=j-1;
+   }
+   a[j+1]=temp;//replacing the original var from temp
+  }
+
 }
- 
-// A utility function to print an array
-// of size n
-void printArray(int arr[], int n)
-{
-    int i;
-    for (i = 0; i < n; i++)
-        cout << arr[i] << " ";
-    cout << endl;
-}
- 
-// Driver code
 int main()
-{
-    int arr[] = { 12, 11, 13, 5, 6 };
-    int N = sizeof(arr) / sizeof(arr[0]);
- 
-    insertionSort(arr, N);
-    printArray(arr, N);
- 
-    return 0;
+ {
+    #ifndef ONLINE_JUDGE
+freopen("input.txt","r",stdin); //file input.txt is opened in reading mode i.e "r"
+freopen("output.txt","w",stdout);  //file output.txt is opened in writing mode i.e "w"
+#endif
+   int a[100], n , i ;
+   cout << "how many elements in array\n";
+   cin >> n ;
+   for  (i = 0 ; i < n ; i++ )
+   {
+      cin >> a[i] ;
+   }
+      for  (i = 0 ; i < n ; i++ )
+   {
+      cout << a[i] ;
+   }
+
+   insertionsort(a,n);
+
+
+   cout << endl ;
+         for  (i = 0 ; i < n ; i++ )
+   {
+      cout << a[i] ;
+   }
+    cout << "\nTIME COMPLEXITY\n";
+       cout << "Best === O(n)\n";
+         cout << "Average === O(n²)\n";
+           cout << "Worst === O(n²)\n";
+            cout << "Space Complexity === O(1)\n";
 }
