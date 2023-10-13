@@ -1,4 +1,8 @@
-
+/*
+This project demonstrates the wortking model of a real ATM machine.
+Author: Raunak Mishra
+Github: https://github.com/Raunakkumarr
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
