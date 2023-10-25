@@ -7,6 +7,6 @@ def refact(n):
        p=n*refact(n-1)
        return p
 
-n=int(input("Enter any number of your choice"))
+n=int(input("Enter a positive number of your choice"))
 fact=refact(n)
 print("The Factorial of a given number is",fact)
