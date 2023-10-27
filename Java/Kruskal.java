@@ -1,4 +1,4 @@
-\\Kruskal algorithm using Union-find method
+//Kruskal algorithm using Union-find method
 package krusk;
 
 import java.util.Scanner;
