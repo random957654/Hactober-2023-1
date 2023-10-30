@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<int> smallestMissingValueSubtree(vector<int>& parent, vector<int>& a) {
+        int n = a.size();
+        vector<int> ans(n, 1);
+        vector<vector<int>> graph(n);
+        vector<int> valToPosMap(100002, -1);
+        for(int i = 0 ; i < n; i++){
+            if(parent[i] != -1){
+                graph[parent[i]].push_back(i);
+            }
+            valToPosMap[a[i]] = i;
+        }
+        vector<int> valToLabelMap(100002, -1), lastChildLabelMap(100002, -1);
+        int label = 0;
+        preorderLabel(valToLabelMap, a, graph, 0, label, lastChildLabelMap);
+        
+        if(valToLabelMap[1] == -1) return ans;
+        
+        int child = valToPosMap[1];
+        int num = 2;
+        while(child != -1){
+            int value = a[child];
+            int left = valToLabelMap[value];
+            int right = lastChildLabelMap[value];
+            int labelOfNum = valToLabelMap[num];
+            if(left <= labelOfNum && labelOfNum <= right) num++;
+            else{
+                ans[child] = num;
+                child = parent[child];
+            }
+        }
+        return ans;
+    }
+    
+    void preorderLabel(vector<int> &valToLabelMap, vector<int> &a, vector<vector<int>> &graph, int u, int &label, vector<int> &lastChildLabelMap){
+        int value = a[u];
+        valToLabelMap[value] = label++;
+        int labelHere = label-1;
+        for(auto &v : graph[u]){
+            preorderLabel(valToLabelMap, a, graph, v, label, lastChildLabelMap);
+        }
+        lastChildLabelMap[value] = label-1;
+    }
+};
