@@ -1,59 +1,70 @@
-#include <bits/stdc++.h>
-#include <iostream>
-using namespace std;
-typedef long long ll;
-typedef vector<int> vi;
-typedef pair<int, int> pi;
-#define F first
-#define S second
-#define PB push_back
-#define MP make_pair
-#define forn(i, n) for (int i = 0; i < int(n); i++)
-
-// freopen('input.txt', 'r', stdin);
-// freopen('output.txt', 'w', stdout);
-int main()
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-
-    vector<string> Chess(8);
-    forn(i, 8)
-    {
-        cin >> Chess[i];
-    }
-    int cnt = 0;
-    vector<int> Col(8);
-    iota(Col.begin(), Col.end(), 0); // fills the values 0 1 2 ...n in specifc loaction.
-
-    do
-    {
-        bool valid = true;
-        forn(i, 8)
-        {
-            if (Chess[i][Col[i]] != '.')
-            {
-                valid = false;
-                break;
+ bool isSafe(int &row , int &col, int &n, vector<vector<int>> &check){
+        //checked if any prev row had queen in this col
+        for(int i=0;i<row;i++){
+            if(check[i][col]==1){
+                return false;
             }
         }
-        vector<bool> diagonalOccupied(15, false);
-        forn(i, 8)
-        {
-            if (diagonalOccupied[i + Col[i]])
-                valid = false;
-            diagonalOccupied[i + Col[i]] = true;
+        //checking front diagonal-row decreases-col increases
+        int startrow=row;
+        int startcol=col;
+        while(startrow>=0 && startcol<n){
+            if(check[startrow][startcol]==1){
+                return false;
+            }
+            startrow--;
+            startcol++;
+            
         }
-        forn(i, 15) diagonalOccupied[i] = false;
-        forn(i, 8)
-        {
-            if (diagonalOccupied[i + 7 - Col[i]])
-                valid = false;
-            diagonalOccupied[i + 7 - Col[i]] = true;
+        //checking for back diagonal
+        startrow=row;
+        startcol=col;
+        while(startrow>=0 && startcol>=0){
+            if(check[startrow][startcol]==1){
+                return false;
+            }
+            startrow--;
+            startcol--;
         }
-        cnt += valid;
-    } while (next_permutation(Col.begin(), Col.end()));
-    cout << cnt;
-    return 0;
-}
+        
+        return true;
+    }
+
+
+   void nqueen(vector<int> temp,vector<vector<int>> &ans,vector<vector<int>> &check,int &n,int row){
+       //base case
+       if(row==n){
+           
+           return;
+       }
+       
+       
+       //placing in each col
+       for(int i=0;i<n;i++){
+           if(isSafe(row,i,n,check)){
+            //   cout<<row<<" "<<i<<" is safe"<<endl;
+               check[row][i]=1;
+            //   cout<<"pushing "<<row<<" "<<i<<endl;
+               temp.push_back(i+1);
+               nqueen(temp,ans,check,n,row+1);
+               //backtrack
+               temp.pop_back();
+                // cout<<"popping "<<row<<" "<<i<<endl;
+               check[row][i]=0;
+           }
+       }
+       
+       return;
+       
+   }
+   
+   
+    vector<vector<int>> nQueen(int n) {
+        // code here
+        vector<vector<int>> ans;
+        vector<vector<int>> check( n , vector<int> (n, 0)); 
+        vector<int> temp;
+        nqueen(temp,ans,check,n,0);
+        return ans;
+        
+    }
