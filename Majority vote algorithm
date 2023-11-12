@@ -1,0 +1,26 @@
+# https://gregable.com/2013/10/majority-vote-algorithm-find-majority.html
+# Algorithm
+candidate = 0
+count = 0
+for candidate_i, count_i in parallel_output:
+  if candidate_i = candidate:
+    count += count_i
+  else if count_i > count:
+    count = count_i - count
+    candidate = candidate_i
+  else:
+    count = count - count_i
+
+# Leetcode Problem 169. Majority Element
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        count = 0
+        candidate = -1
+        for num in nums:
+            if count ==0:
+                candidate = num
+            if num == candidate:
+                count+=1
+            else:
+                count-=1
+        return candidate

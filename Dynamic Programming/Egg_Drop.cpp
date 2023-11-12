@@ -1,58 +1,44 @@
+#include <vector>
+#include <algorithm>
+
 class Solution {
 public:
-    int t[3][1001];          //matrix for memoization
-
-    int solve(int e,int f)
-    {
-        if(f == 0 || f==1)  //base conditon
-        {
-            return f;
-        }
-        if(e==1)
-        {
-            return f;
-        }
-
-        if(t[e][f] !=-1)          //if element present in matrix, get from it
-        {
-            return t[e][f];
-        }
-
-        int mn = INT_MAX;          //for answer return 
-        int low,high ;
-
-        for(int k=1;k<=f;k++)        //floor 1 to Nth floor
-        {
-            if(t[e-1][k-1] != -1)           //upto that floor egg will break
-            {
-                 low = t[e-1][k-1];
-            }
-            else
-            {
-                low = solve(e-1,k-1);
-                t[e-1][k-1] = low;
-            }
-
-            if(t[e][f-k] != -1)        //above the floors from the egg will break
-            {
-                 high = t[e][f-k];
-            }
-            else
-            {
-                high = solve(e,f-k);
-                t[e][f-k] = high;
-            }
-
-            int temp = 1 + max(low,high);       // max for worst case 
-            
-            mn = min(mn,temp);      //return the minimun ans;
-        }
-        
-        return t[e][f] = mn;
-    }
     int twoEggDrop(int f) {
-        memset(t,-1,sizeof(t));
+        std::vector<std::vector<int>> dp(3, std::vector<int>(f + 1, 0));
 
-        return solve(2,f);
+        for (int i = 1; i <= 2; ++i) {
+            for (int j = 1; j <= f; ++j) {
+                if (i == 1) {
+                    dp[i][j] = j;
+                } else if (j == 1) {
+                    dp[i][j] = 1;
+                } else {
+                    int mn = INT_MAX;
+                    int low, high;
+
+                    int left = 1, right = j;
+                    while (left <= right) {
+                        int mid = left + (right - left) / 2;
+
+                        low = dp[i - 1][mid - 1];
+                        high = dp[i][j - mid];
+
+                        mn = std::min(mn, 1 + std::max(low, high));
+
+                        if (low < high) {
+                            left = mid + 1;
+                        } else if (low > high) {
+                            right = mid - 1;
+                        } else {
+                            break;  // found the optimal value
+                        }
+                    }
+
+                    dp[i][j] = mn;
+                }
+            }
+        }
+
+        return dp[2][f];
     }
 };

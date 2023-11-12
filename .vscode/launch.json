@@ -39,8 +39,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/mariy/OneDrive/Desktop/github repository/Hactober-2023-1",
-      "program": "c:/Users/mariy/OneDrive/Desktop/github repository/Hactober-2023-1/build/Debug/outDebug",
+      "cwd": "d:/codes/Hactober-2023-1",
+      "program": "d:/codes/Hactober-2023-1/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
