@@ -1,0 +1,154 @@
+//cpp file
+
+#include "MyForm.h"
+
+using namespace System;
+using namespace System::Windows::Forms;
+[STAThreadAttribute]
+int main(array<String^>^ args) {
+	Application::EnableVisualStyles();
+	Application::SetCompatibleTextRenderingDefault(false);
+	Project1::MyForm form;
+	Application::Run(% form);
+}
+
+//myform.H
+#pragma once
+#include <iostream>
+namespace Project1 {
+
+	using namespace System;
+	using namespace System::ComponentModel;
+	using namespace System::Collections;
+	using namespace System::Windows::Forms;
+	using namespace System::Data;
+	using namespace System::Drawing;
+
+	/// <summary>
+	/// Summary for MyForm
+	/// </summary>
+	public ref class MyForm : public System::Windows::Forms::Form
+	{
+	public:
+		MyForm(void)
+		{
+			InitializeComponent();
+			//
+			//TODO: Add the constructor code here
+			//
+		}
+
+	protected:
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		~MyForm()
+		{
+			if (components)
+			{
+				delete components;
+			}
+		}
+	protected:
+
+	private: System::Windows::Forms::TextBox^ firstNumber;
+	private: System::Windows::Forms::TextBox^ seccondNumber;
+	private: System::Windows::Forms::TextBox^ symbol;
+	private: System::Windows::Forms::Label^ equals;
+	private: System::Windows::Forms::Label^ label1;
+
+
+	private:
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		System::ComponentModel::Container^ components;
+
+#pragma region Windows Form Designer generated code
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		void InitializeComponent(void)
+		{
+			this->firstNumber = (gcnew System::Windows::Forms::TextBox());
+			this->seccondNumber = (gcnew System::Windows::Forms::TextBox());
+			this->symbol = (gcnew System::Windows::Forms::TextBox());
+			this->equals = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->SuspendLayout();
+			// 
+			// firstNumber
+			// 
+			this->firstNumber->Location = System::Drawing::Point(12, 144);
+			this->firstNumber->Name = L"firstNumber";
+			this->firstNumber->Size = System::Drawing::Size(314, 31);
+			this->firstNumber->TabIndex = 0;
+			this->firstNumber->TextChanged += gcnew System::EventHandler(this, &MyForm::firstNumber_TextChanged);
+			// 
+			// seccondNumber
+			// 
+			this->seccondNumber->Location = System::Drawing::Point(429, 144);
+			this->seccondNumber->Name = L"seccondNumber";
+			this->seccondNumber->Size = System::Drawing::Size(197, 31);
+			this->seccondNumber->TabIndex = 1;
+			this->seccondNumber->TextChanged += gcnew System::EventHandler(this, &MyForm::seccondNumber_TextChanged);
+			// 
+			// symbol
+			// 
+			this->symbol->Location = System::Drawing::Point(346, 144);
+			this->symbol->Name = L"symbol";
+			this->symbol->Size = System::Drawing::Size(68, 31);
+			this->symbol->TabIndex = 2;
+			this->symbol->TextChanged += gcnew System::EventHandler(this, &MyForm::symbol_TextChanged);
+			// 
+			// equals
+			// 
+			this->equals->AutoSize = true;
+			this->equals->Location = System::Drawing::Point(708, 150);
+			this->equals->Name = L"equals";
+			this->equals->Size = System::Drawing::Size(0, 25);
+			this->equals->TabIndex = 3;
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(648, 149);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(24, 25);
+			this->label1->TabIndex = 4;
+			this->label1->Text = L"=";
+			// 
+			// MyForm
+			// 
+			this->ClientSize = System::Drawing::Size(1080, 537);
+			this->Controls->Add(this->label1);
+			this->Controls->Add(this->equals);
+			this->Controls->Add(this->symbol);
+			this->Controls->Add(this->seccondNumber);
+			this->Controls->Add(this->firstNumber);
+			this->Name = L"MyForm";
+			this->ResumeLayout(false);
+			this->PerformLayout();
+
+		}
+#pragma endregion
+	private: System::Void firstNumber_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		Convert::ToInt32(firstNumber->Text);
+		int x = Convert::ToInt32(firstNumber->Text);
+	}
+	private: System::Void seccondNumber_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		int y = Convert::ToInt32(seccondNumber->Text);
+	}
+
+	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void symbol_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		int sum;
+		if (symbol->Text == "+") {
+			sum = Convert::ToInt32(firstNumber->Text) + Convert::ToInt32(seccondNumber->Text);
+			equals->Text = Convert::ToString(sum);
+		}
+	}
+	};
+}
