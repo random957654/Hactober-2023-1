@@ -1,6 +1,24 @@
 #include <iostream>
 #include <vector>
 
+// Binary Search Recursive
+// Contributed by Devendra Tarak (DevT75)
+
+int binarySearchRecursive(const std::vector<int>& arr, int left, int right, int target){
+    if(left >= right){
+        int mid = left + (right - left) >> 1;
+        // if the target is found at mid index
+        if(arr[mid] == target) return mid;
+        // else if mid is greater then target implies our requied is in the first half of array
+        else if(arr[mid] > target) return binarySearchRecursive(arr,left,mid - 1,target);
+        // else the required element is presented in second half
+        else return binarySearchRecursive(arr,mid + 1,right,target);
+    }
+    // we will reach this if we could not find the target element so return -1
+    return -1;
+}
+
+
 int binarySearch(const std::vector<int>& arr, int target) {
     int left = 0;
     int right = arr.size() - 1;

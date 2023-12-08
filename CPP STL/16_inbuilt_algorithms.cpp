@@ -1,8 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 
 // min_element(), max_element(), accumulate(), count(), find() and reverse() work in O(n) for arrays/vectors/strings.
 // count() and  find() work in O(log n) for maps/sets.
+
+/* nth_element description as well as code contributed by Devendra Tarak (DevT75) */
+
+// std::nth_element() is an STL algorithm which rearranges the list in such a way such that 
+// the element at the nth position is the one which should be at that position if we sort the list.
+// It doesn't sort the list  just that all the elements, 
+// which precede the nth element are not greater than it, and all the elements which succeed it are not less than it.
+// (if std namespace can be used then nth_element else std::nth_element)
 
 int main()
 {
@@ -87,6 +96,35 @@ int main()
         3 2 1
         After loop: 1 2 3
     */
+
+    // nth_element takes O(N) time to rearrange the list
+
+   ll a[] = { 3,2,10,15,89,63,75 };
+
+    // syntax : nth_element(first iterator,nth iterator,last iterator,comparator)
+    // if not specified the comparator is " < ".
+    // i.e. the element preceding the nth_element will be smaller and succeding elements
+    // will be larger
+
+    // using std::nth_element with n as 5
+
+    nth_element(a,a + 4,a + 6);
+
+    for(ll i = 0;i < 7;i++) cout << a[i] << " ";
+
+    /*
+
+    OUTPUT:
+
+        15  2  10  3  63  89  75
+        ------------  nth ******
+        all the elements preceding the 5th element(63) are smaller while succeding elements are greater
+
+
+    
+    */
+    // nth_element gets sorted through this.   
+    // custom comparator may be used as well.
 
     return 0;
 }
